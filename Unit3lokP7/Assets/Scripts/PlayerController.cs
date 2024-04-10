@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public bool gameOver = false;
     private Rigidbody playerRb;
     public float jumpForce;
     public float gravityModifier;
@@ -31,6 +33,15 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        isOnGround = true;
+       
+
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isOnGround = true;
+        } else if(collision.gameObject.CompareTag("Obstacle"))
+        {
+            Debug.Log("Game Over!");
+            gameOver = true;
+        }
     }
 }
